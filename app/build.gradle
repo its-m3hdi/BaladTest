@@ -34,9 +34,16 @@ android {
             applicationIdSuffix ".debug"
             versionNameSuffix "-DEBUG"
             buildConfigField("String", "BASE_URL", "\"https://api.foursquare.com/v2/\"")
-            buildConfigField("String", "Client_Id", "\"CEPPVSNB2UOVYP0JMQLKPVHIVM0ZQSDLE1JWB3RFZSDJQRKJ\"")
-            buildConfigField("String", "Client_Secret", "\"ZPNSZ2CX24DMZDDTZL2WPWKBI133HP2F2UEULVY04GDAXDUX\"")
-            buildConfigField("String", "ApiVersion", "\"20180323\"")
+
+            buildConfigField("String", "Client_Id_Key", "\"client_id\"")
+            buildConfigField("String", "Client_Id_Value", "\"CEPPVSNB2UOVYP0JMQLKPVHIVM0ZQSDLE1JWB3RFZSDJQRKJ\"")
+
+            buildConfigField("String", "Client_Secret_Key", "\"client_secret\"")
+            buildConfigField("String", "Client_Secret_Value", "\"ZPNSZ2CX24DMZDDTZL2WPWKBI133HP2F2UEULVY04GDAXDUX\"")
+
+            buildConfigField("String", "API_VERSION_Key", "\"v\"")
+            buildConfigField("String", "API_VERSION_Value", "\"20180323\"")
+
         }
     }
     compileOptions {
