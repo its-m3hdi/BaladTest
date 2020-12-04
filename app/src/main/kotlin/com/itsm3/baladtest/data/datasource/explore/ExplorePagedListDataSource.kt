@@ -10,7 +10,7 @@ import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import javax.inject.Inject
 
-class ExplorePagedlistDataSource<T> @Inject constructor(
+class ExplorePagedListDataSource<T> @Inject constructor(
     val pagedListCallback: PagedList.BoundaryCallback<VenuesEntity.Explore>,
     val dbSource: IExploreDbDataSource
 ) : IPagedListDataSource {
