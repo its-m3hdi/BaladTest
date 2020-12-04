@@ -6,6 +6,6 @@ import com.itsm3.baladtest.domain.common.ResultState
 import com.itsm3.baladtest.domain.entity.VenuesEntity
 import io.reactivex.Flowable
 
-interface IExploreDataSource : IBaseDataSource {
+interface IPagedListDataSource : IBaseDataSource {
     fun getExploreVenues(radius: Int, limit: Int): Flowable<ResultState<PagedList<VenuesEntity.Explore>>>
 }
