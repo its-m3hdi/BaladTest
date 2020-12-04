@@ -6,7 +6,7 @@ import dagger.Module
 import okhttp3.Interceptor
 
 @Module
-abstract class AuthBinderModule {
+interface BindAuthModule {
     @Binds
-    abstract fun bindAuthInterceptor(authInterceptor: AuthInterceptor): Interceptor
+    fun bindAuthInterceptor(authInterceptor: AuthInterceptor): Interceptor
 }

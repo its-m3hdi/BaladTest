@@ -14,7 +14,7 @@ import com.itsm3.baladtest.BuildConfig
 import dagger.Module
 import retrofit2.converter.gson.GsonConverterFactory
 
-@Module(includes = [AuthBinderModule::class])
+@Module(includes = [BindAuthModule::class])
 object NetworkModule {
     @Provides
     @JvmStatic

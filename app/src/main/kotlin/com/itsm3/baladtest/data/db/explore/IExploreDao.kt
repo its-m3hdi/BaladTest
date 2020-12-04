@@ -1,12 +1,13 @@
 package com.itsm3.baladtest.data.db.explore
 
 import androidx.paging.DataSource
+import androidx.room.Dao
 import androidx.room.Query
 import com.itsm3.baladtest.data.db.IBaseDao
 import io.reactivex.Flowable
 
+@Dao
 interface IExploreDao : IBaseDao<ExploreData.Explore> {
-
     @Query("SELECT * FROM explore_table WHERE id = :id")
     override fun select(id: Long): Flowable<ExploreData.Explore>
 

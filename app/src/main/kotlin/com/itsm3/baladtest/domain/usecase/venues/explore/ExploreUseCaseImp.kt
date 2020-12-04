@@ -5,8 +5,9 @@ import com.itsm3.baladtest.data.repository.explore.IExploreRepo
 import com.itsm3.baladtest.domain.common.ResultState
 import com.itsm3.baladtest.domain.entity.VenuesEntity
 import io.reactivex.Flowable
+import javax.inject.Inject
 
-class ExploreUseCaseImp(
+class ExploreUseCaseImp @Inject constructor(
     private val repo: IExploreRepo
 ) : IExploreUseCase {
 

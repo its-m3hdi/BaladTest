@@ -9,8 +9,10 @@ import com.itsm3.baladtest.domain.entity.VenuesEntity
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import javax.inject.Inject
+import javax.inject.Named
 
-class ExplorePagedListDataSource<T> @Inject constructor(
+class ExplorePagedListDataSource @Inject constructor(
+    @Named("ExplorePagedListCallback")
     val pagedListCallback: PagedList.BoundaryCallback<VenuesEntity.Explore>,
     val dbSource: IExploreDbDataSource
 ) : IPagedListDataSource {
