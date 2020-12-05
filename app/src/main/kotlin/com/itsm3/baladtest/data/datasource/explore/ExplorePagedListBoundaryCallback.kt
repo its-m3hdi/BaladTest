@@ -53,7 +53,7 @@ class ExplorePagedListBoundaryCallback @Inject constructor(
         firstRequestPending = true
         if (latLng.isEmpty())
             return
-        
+
         this.latLng = latLng
         this.radius = radius
         this.limit = limit

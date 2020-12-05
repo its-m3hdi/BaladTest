@@ -8,4 +8,5 @@ import io.reactivex.Flowable
 
 interface IExploreUseCase : IBaseUseCase {
     fun explore(): Flowable<ResultState<PagedList<VenuesEntity.Explore>>>
+    fun onClear()
 }
