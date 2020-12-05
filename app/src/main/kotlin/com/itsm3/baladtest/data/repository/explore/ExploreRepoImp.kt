@@ -10,10 +10,11 @@ import javax.inject.Inject
 class ExploreRepoImp @Inject constructor(private val dataSource: IPagedListDataSource) :
     IExploreRepo {
     override fun getExploreVenues(
+        latLng: String,
         radius: Int,
         limit: Int
     ): Flowable<ResultState<PagedList<VenuesEntity.Explore>>> {
-        return dataSource.getExploreVenues(radius, limit)
+        return dataSource.getExploreVenues(latLng, radius, limit)
     }
 
 }

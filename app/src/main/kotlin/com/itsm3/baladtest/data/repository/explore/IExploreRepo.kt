@@ -7,5 +7,9 @@ import com.itsm3.baladtest.domain.entity.VenuesEntity
 import io.reactivex.Flowable
 
 interface IExploreRepo : IBaseRepo {
-    fun getExploreVenues(radius: Int, limit: Int): Flowable<ResultState<PagedList<VenuesEntity.Explore>>>
+    fun getExploreVenues(
+        latLng: String,
+        radius: Int,
+        limit: Int
+    ): Flowable<ResultState<PagedList<VenuesEntity.Explore>>>
 }

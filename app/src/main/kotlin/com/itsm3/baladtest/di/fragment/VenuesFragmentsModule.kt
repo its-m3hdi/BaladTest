@@ -1,12 +1,19 @@
 package com.itsm3.baladtest.di.fragment
 
+import androidx.paging.PagedList
+import androidx.paging.RxPagedListBuilder
 import com.itsm3.baladtest.data.api.ExploreService
 import com.itsm3.baladtest.data.datasource.explore.local.ExploreDbDataSourceImp
+import com.itsm3.baladtest.data.datasource.explore.local.IExploreDbDataSource
 import com.itsm3.baladtest.data.db.explore.IExploreDao
+import com.itsm3.baladtest.domain.entity.VenuesEntity
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
+import java.util.concurrent.Executor
+import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import javax.inject.Named
 
 @Module
 object VenuesFragmentsModule {
@@ -22,4 +29,20 @@ object VenuesFragmentsModule {
     @JvmStatic
     fun provideExploreDbDataSource(exploreDao: IExploreDao): ExploreDbDataSourceImp =
         ExploreDbDataSourceImp(exploreDao, Executors.newSingleThreadExecutor())
+
+    @VenuesScope
+    @Provides
+    @JvmStatic
+    @Named("ExplorePagedListBuilder")
+    fun provideRxPagedListBuilder(
+        dbSource: IExploreDbDataSource,
+        executor: Executor
+    ): RxPagedListBuilder<Int, VenuesEntity.Explore> =
+        RxPagedListBuilder(
+            dbSource.getExploreDbDataSourceFactory(),
+            PagedList.Config.Builder()
+                .setPageSize(20)
+                .setEnablePlaceholders(true)
+                .build()
+        )
 }

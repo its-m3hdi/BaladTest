@@ -7,5 +7,5 @@ import com.itsm3.baladtest.domain.entity.VenuesEntity
 import io.reactivex.Flowable
 
 interface IPagedListDataSource : IBaseDataSource {
-    fun getExploreVenues(radius: Int, limit: Int): Flowable<ResultState<PagedList<VenuesEntity.Explore>>>
+    fun getExploreVenues(latLng :String, radius: Int, limit: Int): Flowable<ResultState<PagedList<VenuesEntity.Explore>>>
 }

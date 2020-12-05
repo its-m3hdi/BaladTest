@@ -19,6 +19,8 @@ import com.itsm3.baladtest.presentation.venues.SharedVM
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
+import java.util.concurrent.Executor
+import java.util.concurrent.ExecutorService
 import javax.inject.Named
 
 @Module
@@ -49,8 +51,8 @@ interface BindVenuesFragmentsModule {
     @Binds
     fun provideIPagedListDataSourceImp(explorePagedListDataSource: ExplorePagedListDataSource): IPagedListDataSource
 
-    @VenuesScope
-    @Binds
-    @Named("ExplorePagedListCallback")
-    fun provideIPagedListdsfDataSourceImp(explorePagedListBoundaryCallback: ExplorePagedListBoundaryCallback): PagedList.BoundaryCallback<VenuesEntity.Explore>
+//    @VenuesScope
+//    @Binds
+//    @Named("ExplorePagedListCallback")
+//    fun provideIPagedListdsfDataSourceImp(explorePagedListBoundaryCallback: ExplorePagedListBoundaryCallback): PagedList.BoundaryCallback<VenuesEntity.Explore>
 }

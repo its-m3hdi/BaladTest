@@ -10,12 +10,12 @@ import com.itsm3.baladtest.R
 import com.itsm3.baladtest.databinding.ListItemExploreBinding
 import com.itsm3.baladtest.domain.entity.VenuesEntity
 
-class ExploreVH(private val itemExploreBinding: ListItemExploreBinding) :
-    RecyclerView.ViewHolder(itemExploreBinding.root) {
+class ExploreVH(private val binding: ListItemExploreBinding, ) :
+    RecyclerView.ViewHolder(binding.root) {
     private var id: Int = -1
 
     init {
-        itemExploreBinding.root.setOnClickListener {
+        binding.root.setOnClickListener {
             val direction =
                 ExploreFragmentDirections.navToExploreDetailFrag(id.toLong())
             it.findNavController().navigate(direction)
@@ -24,8 +24,8 @@ class ExploreVH(private val itemExploreBinding: ListItemExploreBinding) :
 
     fun bind(item: VenuesEntity.Explore?) {
         id = item?.id!!
-        itemExploreBinding.explore = item
-        itemExploreBinding.executePendingBindings()
+        binding.explore = item
+        binding.executePendingBindings()
     }
 
     companion object {

@@ -12,33 +12,27 @@ import javax.inject.Inject
 import javax.inject.Named
 
 class ExplorePagedListDataSource @Inject constructor(
-    @Named("ExplorePagedListCallback")
-    val pagedListCallback: PagedList.BoundaryCallback<VenuesEntity.Explore>,
-    val dbSource: IExploreDbDataSource
+    private val pagedListCallback: ExplorePagedListBoundaryCallback,
+    @Named("ExplorePagedListBuilder")
+    private val rxPagedListBuilder: RxPagedListBuilder<Int, VenuesEntity.Explore>
 ) : IPagedListDataSource {
 
+    val data = rxPagedListBuilder
+        .setBoundaryCallback(pagedListCallback)
+        .buildFlowable(BackpressureStrategy.BUFFER)
+        .ioScheduler()
+        .map { it ->
+            if (it.size > 0) ResultState.Success(it)
+            else ResultState.Loading(it)
+        }.onErrorReturn { e -> ResultState.Fail(e, null) }
+
     override fun getExploreVenues(
+        latLng: String,
         radius: Int,
         limit: Int
     ): Flowable<ResultState<PagedList<VenuesEntity.Explore>>> {
-        val data = RxPagedListBuilder(
-            dbSource.getExploreDbDataSourceFactory(),
-            PagedList.Config.Builder()
-                .setPageSize(20)
-                .setEnablePlaceholders(true)
-                .build()
-        )
-            .setBoundaryCallback(pagedListCallback)
-            .buildFlowable(BackpressureStrategy.BUFFER)
-
-        return data.ioScheduler()
-            .map { it ->
-                if (it.size > 0)
-                    ResultState.Success(it)
-                else
-                    ResultState.Loading(it)
-            }
-            .onErrorReturn { e -> ResultState.Fail(e, null) }
+        pagedListCallback.requestNewData(latLng, radius, limit)
+        return data
     }
 
 }
