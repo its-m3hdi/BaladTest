@@ -1,0 +1,128 @@
+/**
+ * Shared file between builds so that they can all use the same dependencies and
+ * maven repositories.
+ **/
+ext.deps = [:]
+def versions = [:]
+versions.kotlin = '1.4.20'
+versions.kotlin_core = '1.3.2'
+versions.kotlin_coroutines_core= '1.4.2'
+versions.kotlin_coroutines_android= '1.4.2'
+versions.android_gradle_plugin = '4.1.0'
+versions.appcompat = '1.1.0'
+versions.cardview = '1.0.0'
+versions.recyclerview = '1.2.0-beta01'
+versions.constraintlayout = '2.0.4'
+versions.material = '1.2.1'
+versions.appcompat_resources = '1.2.0'
+versions.android_gradle_plugin = '4.1.0'
+versions.dagger = '2.30.1'
+versions.rxjava2 = '2.2.2'
+versions.rxandroid = '2.1.0'
+versions.reactivestreams = '2.2.0'
+versions.retrofit = '2.4.0'
+versions.loginterceptor = '4.9.0'
+versions.room = "2.2.5"
+versions.glide = '4.8.0'
+versions.navigation = "2.2.2"
+versions.navigation_safe_args_plugin = "2.3.1"
+versions.paging = "2.1.2"
+
+def build_versions = [:]
+build_versions.min_sdk = 21
+build_versions.compile_sdk = 29
+build_versions.target_sdk = 29
+build_versions.build_tools = "29.0.3"
+ext.build_versions = build_versions
+
+def deps = [:]
+
+deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
+
+//Kotlin
+def kotlin = [:]
+kotlin.stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin"
+kotlin.core = "androidx.core:core-ktx:$versions.kotlin_core"
+kotlin.plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+kotlin.coroutines_core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.kotlin_coroutines_core"
+kotlin.coroutines_android= "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.kotlin_coroutines_android"
+deps.kotlin = kotlin
+
+//Android
+def android = [:]
+android.appcompat = "androidx.appcompat:appcompat:$versions.appcompat"
+// For loading and tinting drawables on older versions of the platform
+android.appcompat_resources = "androidx.appcompat:appcompat-resources:$versions.appcompat_resources"
+android.material = "com.google.android.material:material:$versions.material"
+android.constraintlayout = "androidx.constraintlayout:constraintlayout:$versions.constraintlayout"
+android.recyclerview = "androidx.recyclerview:recyclerview:$versions.recyclerview"
+android.cardview = "androidx.cardview:cardview:$versions.cardview"
+deps.android = android
+
+//Paging
+def paging = [:]
+//For Kotlin use paging-runtime-ktx
+paging.runtime = "androidx.paging:paging-runtime-ktx:$versions.paging"
+//Paging RxJava support
+paging.rxjava2 =  "androidx.paging:paging-rxjava2-ktx:$versions.paging"
+// For Kotlin use paging-rxjava2-ktx
+deps.paging = paging
+
+//Navigation
+def navigation = [:]
+//Kotlin
+navigation.fragment_ktx = "androidx.navigation:navigation-fragment-ktx:$versions.navigation"
+navigation.ui_ktx = "androidx.navigation:navigation-ui-ktx:$versions.navigation"
+navigation.safe_args_plugin = "androidx.navigation:navigation-safe-args-gradle-plugin:$versions.navigation_safe_args_plugin"
+deps.navigation = navigation
+
+//Dagger
+def dagger = [:]
+dagger.runtime = "com.google.dagger:dagger:$versions.dagger"
+dagger.android = "com.google.dagger:dagger-android:$versions.dagger"
+dagger.android_support = "com.google.dagger:dagger-android-support:$versions.dagger"
+dagger.compiler = "com.google.dagger:dagger-compiler:$versions.dagger"
+dagger.processor = "com.google.dagger:dagger-android-processor:$versions.dagger"
+deps.dagger = dagger
+deps.dagger = dagger
+
+//RxJava2
+def rxjava2 = [:]
+rxjava2.runtime = "io.reactivex.rxjava2:rxjava:$versions.rxjava2"
+rxjava2.rxandroid ="io.reactivex.rxjava2:rxandroid:$versions.rxandroid"
+rxjava2.reactive_streams ="androidx.lifecycle:lifecycle-reactivestreams:$versions.reactivestreams"
+deps.rxjava2 = rxjava2
+
+//Retrofit
+def retrofit = [:]
+retrofit.runtime = "com.squareup.retrofit2:retrofit:$versions.retrofit"
+retrofit.rxjava2 = "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit"
+retrofit.gson_converter = "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+retrofit.interceptor = "com.squareup.okhttp3:logging-interceptor:$versions.loginterceptor"
+deps.retrofit = retrofit
+
+//Room
+def room = [:]
+room.runtime = "androidx.room:room-runtime:$versions.room"
+room.rxjava2 = "androidx.room:room-rxjava2:$versions.room"
+room.compiler = "androidx.room:room-compiler:$versions.room"
+// optional - Kotlin Extensions and Coroutines support for Room
+room.ktx = "androidx.room:room-ktx:$versions.room"
+deps.room = room
+
+//Glide
+def glide = [:]
+glide.runtime = "com.github.bumptech.glide:glide:$versions.glide"
+glide.compiler = "com.github.bumptech.glide:compiler:$versions.glide"
+deps.glide = glide
+
+ext.deps = deps
+
+def addRepos(RepositoryHandler handler){
+    handler.google()
+    handler.jcenter()
+    handler.maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+    handler.mavenCentral()
+}
+
+ext.addRepos = this.&addRepos

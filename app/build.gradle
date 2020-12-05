@@ -1,25 +1,49 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion build_versions.compile_sdk
+
+    buildFeatures {
+        dataBinding true
+        viewBinding true //access views id in xml
+    }
 
     defaultConfig {
         applicationId "com.itsm3.baladtest"
-        minSdkVersion 21
-        targetSdkVersion 28
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
         versionCode 1
         versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
 
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            shrinkResources false
+            debuggable true
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-DEBUG"
+            buildConfigField("String", "BASE_URL", "\"https://api.foursquare.com/v2/\"")
+
+            buildConfigField("String", "Client_Id_Key", "\"client_id\"")
+            buildConfigField("String", "Client_Id_Value", "\"CEPPVSNB2UOVYP0JMQLKPVHIVM0ZQSDLE1JWB3RFZSDJQRKJ\"")
+
+            buildConfigField("String", "Client_Secret_Key", "\"client_secret\"")
+            buildConfigField("String", "Client_Secret_Value", "\"ZPNSZ2CX24DMZDDTZL2WPWKBI133HP2F2UEULVY04GDAXDUX\"")
+
+            buildConfigField("String", "API_VERSION_Key", "\"v\"")
+            buildConfigField("String", "API_VERSION_Value", "\"20180323\"")
+
         }
     }
     compileOptions {
@@ -29,12 +53,62 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
 }
 
 dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.2.1'
+    //Kotlin
+    implementation deps.kotlin.stdlib
+    implementation deps.kotlin.core
+    implementation deps.kotlin.coroutines_core
+    implementation deps.kotlin.coroutines_android
+
+    //Android
+    implementation deps.android.appcompat
+    implementation deps.android.appcompat_resources
+    implementation deps.android.material
+    implementation deps.android.constraintlayout
+    implementation deps.android.recyclerview
+    implementation deps.android.cardview
+
+    //Paging
+    implementation deps.paging.runtime
+    implementation deps.paging.rxjava2
+
+    //Navigation
+    implementation deps.navigation.fragment_ktx
+    implementation deps.navigation.ui_ktx
+
+
+    //Dagger
+    kapt deps.dagger.compiler
+    kapt deps.dagger.processor
+    implementation deps.dagger.runtime
+    implementation deps.dagger.android
+    implementation deps.dagger.android_support
+
+    //RxJava2
+    implementation deps.rxjava2.runtime
+    implementation deps.rxjava2.rxandroid
+    implementation deps.rxjava2.reactive_streams
+
+    //Retrofit
+    implementation deps.retrofit.runtime
+    implementation deps.retrofit.rxjava2
+    implementation deps.retrofit.gson_converter
+    implementation deps.retrofit.interceptor
+
+    //Room
+    kapt deps.room.compiler
+    implementation deps.room.runtime
+    implementation deps.room.rxjava2
+    implementation deps.room.ktx
+
+    //Glide
+    implementation deps.glide.runtime
+    implementation deps.glide.compiler
 }
