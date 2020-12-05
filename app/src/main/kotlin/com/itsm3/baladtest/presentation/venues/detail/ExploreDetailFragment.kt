@@ -16,6 +16,7 @@ import com.itsm3.baladtest.domain.entity.VenuesEntity
 import com.itsm3.baladtest.presentation.base.BaseFragment
 import com.itsm3.baladtest.presentation.common.observe
 import com.itsm3.baladtest.presentation.venues.SharedVM
+import java.util.function.Predicate
 import javax.inject.Inject
 
 class ExploreDetailFragment : BaseFragment() {
@@ -46,13 +47,9 @@ class ExploreDetailFragment : BaseFragment() {
     private fun showExploreResult(resultState: @ParameterName(name = "t") ResultState<PagedList<VenuesEntity.Explore>>) {
         when (resultState) {
             is ResultState.Success -> {
-                Toast.makeText(context, "${args.clickedItemId}", Toast.LENGTH_LONG).show()
-            }
-            is ResultState.Loading -> {
-                Toast.makeText(context, "L" + resultState.data.size, Toast.LENGTH_LONG).show()
-            }
-            is ResultState.Fail -> {
-                Toast.makeText(context, "F0", Toast.LENGTH_LONG).show()
+                binding.tv.text = resultState.data.filter {
+                    it?.id?.toLong() == args.clickedItemId
+                }[0].name
             }
         }
     }

@@ -5,9 +5,10 @@ import com.itsm3.baladtest.data.db.explore.ExploreData
 sealed class VenuesEntity {
     data class Explore(
         val id: Int?,
-        val name: String
+        val name: String,
+        val icon: String
     ) : VenuesEntity() {
-        fun map() = ExploreData.Explore(id, name)
+        fun map() = ExploreData.Explore(id, name, icon)
     }
 
 }

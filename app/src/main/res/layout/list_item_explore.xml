@@ -19,11 +19,19 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{Explore.id+Explore.name}"
+            android:layout_margin="30dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:text="@{Explore.name}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <com.itsm3.baladtest.presentation.view.SquareImageView
+            android:id="@+id/iv"
+            android:layout_width="200dp"
+            android:visibility="gone"
+            android:layout_height="match_parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

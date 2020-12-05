@@ -62,14 +62,14 @@ class LocationProvider @Inject constructor(private val context: Context) {
                 distance, locationListener, Looper.getMainLooper()
             )
 
-//            locationManager.requestSingleUpdate(criteria, object : LocationListener {
-//                override fun onLocationChanged(location: Location) =
-//                    locationCallback.invoke(location.mapTo())
-//
-//                override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
-//                override fun onProviderEnabled(provider: String) {}
-//                override fun onProviderDisabled(provider: String) {}
-//            }, Looper.getMainLooper())
+            locationManager.requestSingleUpdate(criteria, object : LocationListener {
+                override fun onLocationChanged(location: Location) =
+                    locationCallback.invoke(location.mapTo())
+
+                override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
+                override fun onProviderEnabled(provider: String) {}
+                override fun onProviderDisabled(provider: String) {}
+            }, Looper.getMainLooper())
         }
         return true
     }

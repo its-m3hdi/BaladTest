@@ -16,6 +16,9 @@ class ExploreUseCaseImp @Inject constructor(
     private val locationProvider: LocationProvider
 ) : IExploreUseCase {
 
+    private val UpdateDistance: Float = 100F
+    private val UpdateTime: Long = 60 * 60 * 1000 // 1 hour
+
     override fun explore(): Flowable<ResultState<PagedList<VenuesEntity.Explore>>> {
         requestLocation()
         return repo.getExploreVenues("", 3000, 30) //init to read from db if available
@@ -23,9 +26,13 @@ class ExploreUseCaseImp @Inject constructor(
 
     private fun requestLocation() {
         executor.execute {
-            locationProvider.getLocation(60, 100F) {
+            locationProvider.getLocation(UpdateTime, UpdateDistance) {
                 it?.let {
-                    repo.getExploreVenues("40.7243,-74.0018", 3000, 30)
+                    repo.getExploreVenues(
+                        "40.7243,-74.0018", //"40.7243,-74.0018" is fake location place
+                        3000,
+                        30
+                    )
                 }
             }
         }
