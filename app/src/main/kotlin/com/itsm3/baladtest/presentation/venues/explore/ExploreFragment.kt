@@ -31,7 +31,8 @@ class ExploreFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedVM.explore()
+        if (savedInstanceState == null || !savedInstanceState.containsKey(FRAGMENT_RECREATED))
+            sharedVM.explore() // fire it just once at first, will skip in orientation change
         observe(sharedVM.observe(), ::showExploreResult)
     }
 
