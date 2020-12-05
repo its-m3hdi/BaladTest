@@ -11,6 +11,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import com.itsm3.baladtest.BuildConfig
+import com.itsm3.baladtest.data.api.AuthInterceptor
 import dagger.Module
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -40,7 +41,7 @@ object NetworkModule {
     @JvmStatic
     fun provideClient(
         loggingInterceptor: HttpLoggingInterceptor,
-        authInterceptor: Interceptor,
+        authInterceptor: AuthInterceptor,
         cache: Cache
     ): OkHttpClient =
         OkHttpClient.Builder()

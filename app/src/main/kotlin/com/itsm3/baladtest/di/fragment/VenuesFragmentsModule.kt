@@ -10,12 +10,14 @@ import java.util.concurrent.Executors
 
 @Module
 object VenuesFragmentsModule {
+    @VenuesScope
     @Provides
     @JvmStatic
     fun provideExploreService(
         retrofit: Retrofit
     ): ExploreService = retrofit.create(ExploreService::class.java)
 
+    @VenuesScope
     @Provides
     @JvmStatic
     fun provideExploreDbDataSource(exploreDao: IExploreDao): ExploreDbDataSourceImp =

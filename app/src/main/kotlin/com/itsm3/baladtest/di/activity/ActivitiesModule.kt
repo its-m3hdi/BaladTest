@@ -7,6 +7,7 @@ import dagger.android.ContributesAndroidInjector
 
 @Module
 abstract class ActivitiesModule {
+    @MainActivityScope
     @ContributesAndroidInjector(modules = [VenuesFragmentsBindingModule::class])
     abstract fun contributeMainActivity(): MainActivity
 }

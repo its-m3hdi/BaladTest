@@ -1,6 +1,7 @@
 package com.itsm3.baladtest.data.datasource.explore
 
 import android.util.Log
+import android.widget.Toast
 import androidx.paging.PagedList
 import com.itsm3.baladtest.data.common.ioScheduler
 import com.itsm3.baladtest.data.datasource.explore.local.IExploreDbDataSource
@@ -13,9 +14,9 @@ class ExplorePagedListBoundaryCallback @Inject constructor(
     private val dbDataSource: IExploreDbDataSource,
 ) : PagedList.BoundaryCallback<VenuesEntity.Explore>() {
 
-    var latLng: String = "40.6243, -74.0018"
+    var latLng: String = "40.7243,-74.0018"
     var limit: Int = 30
-    var radius: Int = 300
+    var radius: Int = 3000
 
     private var dbCleared: Boolean = false
     private var offset = 0

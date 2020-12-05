@@ -5,11 +5,13 @@ import com.itsm3.baladtest.presentation.venues.explore.ExploreFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
-@Module(includes = [BindVenuesFragmentsModule::class, VenuesFragmentsModule::class])
+@Module//(includes = [BindVenuesFragmentsModule::class, VenuesFragmentsModule::class])
 abstract class VenuesFragmentsBindingModule {
-    @ContributesAndroidInjector()
+    @VenuesScope
+    @ContributesAndroidInjector(modules = [BindVenuesFragmentsModule::class, VenuesFragmentsModule::class])
     abstract fun contributeExploreFragment(): ExploreFragment
 
-    @ContributesAndroidInjector()
+    @VenuesScope
+    @ContributesAndroidInjector(modules = [BindVenuesFragmentsModule::class, VenuesFragmentsModule::class])
     abstract fun contributeExploreDetailFragment(): ExploreDetailFragment
 }
