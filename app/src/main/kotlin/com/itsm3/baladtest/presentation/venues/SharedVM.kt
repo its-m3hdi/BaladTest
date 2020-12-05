@@ -21,6 +21,7 @@ class SharedVM @Inject constructor(
 
     fun explore() {
         executor.execute {
+            onCleared()
             exploreUseCase.explore().subscribe() {
                 exploreLiveData.postValue(it)
             }?.track()

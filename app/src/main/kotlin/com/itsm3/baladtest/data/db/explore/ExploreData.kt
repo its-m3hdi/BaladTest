@@ -9,8 +9,9 @@ sealed class ExploreData {
     @Entity(tableName = "explore_table")
     data class Explore(
         @ColumnInfo(name = "id") @PrimaryKey(autoGenerate = true) val id: Int? = null,
-        @ColumnInfo(name = "name") val name: String
+        @ColumnInfo(name = "name") val name: String,
+        @ColumnInfo(name = "icon") val icon: String
     ) : ExploreData() {
-        fun map() = VenuesEntity.Explore(id, name)
+        fun map() = VenuesEntity.Explore(id, name,icon)
     }
 }

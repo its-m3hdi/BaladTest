@@ -35,9 +35,7 @@ object VenuesFragmentsModule {
     @JvmStatic
     @Named("ExplorePagedListBuilder")
     fun provideRxPagedListBuilder(
-        dbSource: IExploreDbDataSource,
-        executor: Executor
-    ): RxPagedListBuilder<Int, VenuesEntity.Explore> =
+        dbSource: IExploreDbDataSource): RxPagedListBuilder<Int, VenuesEntity.Explore> =
         RxPagedListBuilder(
             dbSource.getExploreDbDataSourceFactory(),
             PagedList.Config.Builder()

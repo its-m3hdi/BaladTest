@@ -6,5 +6,10 @@ import com.itsm3.baladtest.domain.entity.VenuesEntity
 data class Items(
     @SerializedName("venue") val venue: Venue
 ) {
-    fun mapTo() = VenuesEntity.Explore(null, venue.name)
+    fun mapTo() = VenuesEntity.Explore(
+        null,
+        venue.name,
+        venue.categories[0].icon.prefix +
+                venue.categories[0].icon.suffix
+    )
 }
