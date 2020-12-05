@@ -8,5 +8,20 @@
         android:id="@+id/exploreFrag"
         android:name="com.itsm3.baladtest.presentation.venues.explore.ExploreFragment"
         android:label="fragment_explore"
-        tools:layout="@layout/fragment_explore"></fragment>
+        tools:layout="@layout/fragment_explore">
+        <action
+            android:id="@+id/navToExploreDetailFrag"
+            app:destination="@+id/exploreDetailFrag" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/exploreDetailFrag"
+        android:name="com.itsm3.baladtest.presentation.venues.detail.ExploreDetailFragment"
+        android:label="fragment_explore_detail"
+        tools:layout="@layout/fragment_explore_detail">
+        <argument
+            android:name="clickedItemId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </fragment>
 </navigation>
