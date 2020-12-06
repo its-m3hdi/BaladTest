@@ -17,7 +17,7 @@ class ExplorePagedListDataSource @Inject constructor(
     private val rxPagedListBuilder: RxPagedListBuilder<Int, VenuesEntity.Explore>
 ) : IPagedListDataSource {
 
-    val data = rxPagedListBuilder
+    private val data = rxPagedListBuilder
         .setBoundaryCallback(pagedListCallback)
         .buildFlowable(BackpressureStrategy.BUFFER)
         .ioScheduler()
@@ -26,13 +26,15 @@ class ExplorePagedListDataSource @Inject constructor(
             else ResultState.Loading(it)
         }.onErrorReturn { e -> ResultState.Fail(e, null) }
 
+    private val subject = pagedListCallback.getSubject()
+
     override fun getExploreVenues(
         latLng: String,
         radius: Int,
         limit: Int
     ): Flowable<ResultState<PagedList<VenuesEntity.Explore>>> {
         pagedListCallback.requestNewData(latLng, radius, limit)
-        return data
+        return data.mergeWith(subject.toFlowable(BackpressureStrategy.LATEST))
     }
 
 }

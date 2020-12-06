@@ -14,6 +14,9 @@ sealed class ResultState<T> {
      */
     data class Success<T>(val data: T) : ResultState<T>()
 
+
+    data class End<T>(val data: T) : ResultState<T>()
+
     /**
      * A state to show a [throwable] is thrown.
      */

@@ -6,9 +6,11 @@ import com.itsm3.baladtest.data.api.ExploreService
 import com.itsm3.baladtest.data.datasource.explore.local.ExploreDbDataSourceImp
 import com.itsm3.baladtest.data.datasource.explore.local.IExploreDbDataSource
 import com.itsm3.baladtest.data.db.explore.IExploreDao
+import com.itsm3.baladtest.domain.common.ResultState
 import com.itsm3.baladtest.domain.entity.VenuesEntity
 import dagger.Module
 import dagger.Provides
+import io.reactivex.subjects.PublishSubject
 import retrofit2.Retrofit
 import java.util.concurrent.Executor
 import java.util.concurrent.ExecutorService
@@ -35,7 +37,8 @@ object VenuesFragmentsModule {
     @JvmStatic
     @Named("ExplorePagedListBuilder")
     fun provideRxPagedListBuilder(
-        dbSource: IExploreDbDataSource): RxPagedListBuilder<Int, VenuesEntity.Explore> =
+        dbSource: IExploreDbDataSource
+    ): RxPagedListBuilder<Int, VenuesEntity.Explore> =
         RxPagedListBuilder(
             dbSource.getExploreDbDataSourceFactory(),
             PagedList.Config.Builder()
@@ -43,4 +46,10 @@ object VenuesFragmentsModule {
                 .setEnablePlaceholders(true)
                 .build()
         )
+
+    @VenuesScope
+    @Provides
+    @JvmStatic
+    fun providePagedListCallbackPublishSubject() =
+        PublishSubject.create<ResultState<PagedList<VenuesEntity.Explore>>>()
 }

@@ -59,14 +59,13 @@ class ExploreFragment : BaseFragment() {
     private fun showExploreResult(resultState: @ParameterName(name = "t") ResultState<PagedList<VenuesEntity.Explore>>) {
         when (resultState) {
             is ResultState.Success -> {
-                Toast.makeText(context, "Success", Toast.LENGTH_LONG).show()
                 adapter.submitList(resultState.data)
             }
             is ResultState.Loading -> {
                 Toast.makeText(context, "Loading", Toast.LENGTH_LONG).show()
             }
             is ResultState.Fail -> {
-                Toast.makeText(context, "Loading Fail", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Network Fail", Toast.LENGTH_LONG).show()
             }
         }
     }
