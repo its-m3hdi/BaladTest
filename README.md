@@ -12,6 +12,7 @@ Good news is:
 
 Note:
 
-    1)I hard coded location ""40.7243,-74.0018" to get a longer list from server, you can uncomment this part and app will show you a list based on your location 
+    1)I hard coded location ""40.7243,-74.0018" to get a longer list from server, you can uncomment this
+      part and app will show you a list based on your location 
     
 Have Fun ؛)
