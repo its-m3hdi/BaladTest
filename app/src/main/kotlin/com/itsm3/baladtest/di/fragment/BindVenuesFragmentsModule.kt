@@ -31,11 +31,9 @@ interface BindVenuesFragmentsModule {
     @ViewModelKey(SharedVM::class)
     fun provideShareVM(sharedVM: SharedVM): ViewModel
 
-    @VenuesScope
     @Binds
     fun provideExploreRepository(exploreRepo: ExploreRepoImp): IExploreRepo
 
-    @VenuesScope
     @Binds
     fun provideExploreApiDataSource(exploreApiDataSource: ExploreApiDataSourceImp): IExploreApiDataSource
 
@@ -43,16 +41,10 @@ interface BindVenuesFragmentsModule {
     @Binds
     fun provideExploreDbDataSource(exploreDbDataSource: ExploreDbDataSourceImp): IExploreDbDataSource
 
-    @VenuesScope
     @Binds
     fun provideExploreUseCaseImp(exploreUseCase: ExploreUseCaseImp): IExploreUseCase
 
-    @VenuesScope
     @Binds
     fun provideIPagedListDataSourceImp(explorePagedListDataSource: ExplorePagedListDataSource): IPagedListDataSource
 
-//    @VenuesScope
-//    @Binds
-//    @Named("ExplorePagedListCallback")
-//    fun provideIPagedListdsfDataSourceImp(explorePagedListBoundaryCallback: ExplorePagedListBoundaryCallback): PagedList.BoundaryCallback<VenuesEntity.Explore>
 }

@@ -19,20 +19,17 @@ import javax.inject.Named
 
 @Module
 object VenuesFragmentsModule {
-    @VenuesScope
     @Provides
     @JvmStatic
     fun provideExploreService(
         retrofit: Retrofit
     ): ExploreService = retrofit.create(ExploreService::class.java)
 
-    @VenuesScope
     @Provides
     @JvmStatic
     fun provideExploreDbDataSource(exploreDao: IExploreDao): ExploreDbDataSourceImp =
         ExploreDbDataSourceImp(exploreDao, Executors.newSingleThreadExecutor())
 
-    @VenuesScope
     @Provides
     @JvmStatic
     @Named("ExplorePagedListBuilder")
@@ -47,7 +44,6 @@ object VenuesFragmentsModule {
                 .build()
         )
 
-    @VenuesScope
     @Provides
     @JvmStatic
     fun providePagedListCallbackPublishSubject() =
