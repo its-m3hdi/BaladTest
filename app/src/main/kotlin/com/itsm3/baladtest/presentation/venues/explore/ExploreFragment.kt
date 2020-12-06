@@ -24,6 +24,7 @@ class ExploreFragment : BaseFragment() {
 
     @Inject
     lateinit var adapter: ExploreListAdapter
+    private var isFirstLoad = false
     private lateinit var binding: FragmentExploreBinding
     private val sharedVM: SharedVM by lazy {
         ViewModelProvider(requireActivity(), viewModelFactory).get(SharedVM::class.java)
@@ -31,9 +32,15 @@ class ExploreFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (savedInstanceState == null || !savedInstanceState.containsKey(FRAGMENT_RECREATED))
-            sharedVM.explore() // fire it just once at first, will skip in orientation change
+        if (savedInstanceState == null || !savedInstanceState.containsKey(FRAGMENT_RECREATED)) {
+            isFirstLoad = true
+            getData() // fire it just once at first, will skip in orientation change
+        }
         observe(sharedVM.observe(), ::showExploreResult)
+    }
+
+    private fun getData() {
+        sharedVM.explore()
     }
 
     override fun onCreateView(
@@ -60,6 +67,11 @@ class ExploreFragment : BaseFragment() {
         when (resultState) {
             is ResultState.Success -> {
                 adapter.submitList(resultState.data)
+
+                if (isFirstLoad) {
+                    isFirstLoad = false
+                    binding.exploreRecycler.scrollToPosition(0) //fix offline load problem
+                }
             }
             is ResultState.Loading -> {
                 Toast.makeText(context, "Loading", Toast.LENGTH_LONG).show()
@@ -71,6 +83,6 @@ class ExploreFragment : BaseFragment() {
     }
 
     fun permissionLocationGranted() {
-        sharedVM.explore()
+        getData()
     }
 }
