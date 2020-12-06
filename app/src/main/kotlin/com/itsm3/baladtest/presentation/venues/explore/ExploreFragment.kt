@@ -73,6 +73,11 @@ class ExploreFragment : BaseFragment() {
                     binding.exploreRecycler.scrollToPosition(0) //fix offline load problem
                 }
             }
+            is ResultState.FirstLoad -> {
+                Toast.makeText(context, "New Data Loaded", Toast.LENGTH_LONG).show()
+                isFirstLoad = true
+            }
+
             is ResultState.Loading -> {
                 Toast.makeText(context, "Loading", Toast.LENGTH_LONG).show()
             }

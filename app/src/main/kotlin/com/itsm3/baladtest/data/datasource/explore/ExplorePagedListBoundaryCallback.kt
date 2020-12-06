@@ -66,6 +66,7 @@ class ExplorePagedListBoundaryCallback @Inject constructor(
         apiDataSource.explore(latLng, limit, radius, offset)
             .ioScheduler()
             .subscribe({
+                subject.onNext(ResultState.FirstLoad(null))
                 firstRequestPending = false
                 allPagesGrabbed = it.isEmpty() || it.size < limit
                 saveToDb(it, true)
