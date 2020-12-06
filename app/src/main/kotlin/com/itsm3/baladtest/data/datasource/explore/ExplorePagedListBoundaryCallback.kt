@@ -1,7 +1,6 @@
 package com.itsm3.baladtest.data.datasource.explore
 
 import android.util.Log
-import android.widget.Toast
 import androidx.paging.PagedList
 import com.itsm3.baladtest.data.common.ioScheduler
 import com.itsm3.baladtest.data.datasource.explore.local.IExploreDbDataSource
@@ -9,11 +8,14 @@ import com.itsm3.baladtest.data.datasource.explore.remote.IExploreApiDataSource
 import com.itsm3.baladtest.domain.common.ResultState
 import com.itsm3.baladtest.domain.entity.VenuesEntity
 import io.reactivex.Flowable
+import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
+
 
 class ExplorePagedListBoundaryCallback @Inject constructor(
     private val apiDataSource: IExploreApiDataSource,
     private val dbDataSource: IExploreDbDataSource,
+    private val subject: PublishSubject<ResultState<PagedList<VenuesEntity.Explore>>>
 ) : PagedList.BoundaryCallback<VenuesEntity.Explore>() {
 
     private var latLng: String = ""
@@ -23,6 +25,8 @@ class ExplorePagedListBoundaryCallback @Inject constructor(
     private var offset = 0
     private var allPagesGrabbed = false //to know when we fetch all data from server
     private var firstRequestPending = true
+
+    fun getSubject() = subject
 
     /**
      * ٌWe reached at the end of the db, all db items were loaded
@@ -45,6 +49,7 @@ class ExplorePagedListBoundaryCallback @Inject constructor(
                 saveToDb(it, firstLoad)
                 offset++
             }, {
+                subject.onNext(ResultState.Fail(it, null))
                 Log.e("Balad-Network", "error:" + offset) //TODO handle it
             })
     }
@@ -66,6 +71,7 @@ class ExplorePagedListBoundaryCallback @Inject constructor(
                 saveToDb(it, true)
                 offset++
             }, {
+                subject.onNext(ResultState.Fail(it, null))
                 Log.e("Balad-Network", "error:" + offset) //TODO handle it
             })
     }
@@ -83,4 +89,5 @@ class ExplorePagedListBoundaryCallback @Inject constructor(
             dbDataSource.persist(it) {
             }
     }
+
 }
